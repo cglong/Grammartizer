@@ -1,12 +1,18 @@
 package com.github.cglong.Grammartizer;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.ArrayList;
 
 public class Expression {
-	private Collection<Symbol> tokens;
+	private List<Symbol> rightSymbols;
+	private Symbol leftSymbol;
 	
-	public Expression() {
-		this.tokens = new ArrayList<Symbol>();
+	public Expression(Symbol leftSymbol) {
+		this.rightSymbols = new ArrayList<Symbol>();
+		this.leftSymbol = leftSymbol;
+	}
+	
+	public boolean hasLeftRecursion() {
+		return this.leftSymbol.equals(rightSymbols.get(0));
 	}
 }

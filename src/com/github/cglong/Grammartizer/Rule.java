@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 public class Rule {
 	private Collection<Expression> expressions;
+	private Symbol symbol;
 	
-	public Rule() {
+	public Rule(Symbol symbol) {
 		this.expressions = new ArrayList<Expression>();
+		this.symbol = symbol;
 	}
 }

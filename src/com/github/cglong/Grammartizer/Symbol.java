@@ -7,5 +7,15 @@ public abstract class Symbol {
 		this.name = name;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Symbol other = (Symbol) o;
+		return this.name.equals(other.getName());
+	}
+	
 	abstract public boolean isTerminal();
 }
