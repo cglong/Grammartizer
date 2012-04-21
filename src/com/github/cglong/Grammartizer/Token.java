@@ -1,4 +1,4 @@
-package me.chrislong.Grammartizer;
+package com.github.cglong.Grammartizer;
 
 public abstract class Token {
 	private String name;
