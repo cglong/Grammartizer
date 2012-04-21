@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.ArrayList;
 
 public class Expression {
-	private Collection<Token> tokens;
+	private Collection<Symbol> tokens;
 	
 	public Expression() {
-		this.tokens = new ArrayList<Token>();
+		this.tokens = new ArrayList<Symbol>();
 	}
 }

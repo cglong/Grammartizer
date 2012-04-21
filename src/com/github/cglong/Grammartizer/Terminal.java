@@ -1,6 +1,6 @@
 package com.github.cglong.Grammartizer;
 
-public class Terminal extends Token {
+public class Terminal extends Symbol {
 
 	public Terminal(String name) {
 		super(name);
