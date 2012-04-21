@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Rule {
 	private Collection<Expression> expressions;
-	private Symbol symbol;
+	private Nonterminal symbol;
 	
-	public Rule(Symbol symbol) {
+	public Rule(Nonterminal symbol) {
 		this.expressions = new ArrayList<Expression>();
 		this.symbol = symbol;
 	}

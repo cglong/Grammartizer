@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Expression {
 	private List<Symbol> rightSymbols;
-	private Symbol leftSymbol;
+	private Nonterminal leftSymbol;
 	
-	public Expression(Symbol leftSymbol) {
+	public Expression(Nonterminal leftSymbol) {
 		this.rightSymbols = new ArrayList<Symbol>();
 		this.leftSymbol = leftSymbol;
 	}
