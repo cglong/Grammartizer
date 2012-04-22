@@ -1,7 +1,6 @@
 package com.github.cglong.Grammartizer;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.ArrayList;
 
 public class Rule {
@@ -13,8 +12,7 @@ public class Rule {
 		this.symbol = symbol;
 	}
 	
-	public void addExpression(List<Symbol> expression) {
-		Expression newExpression = new Expression(this.symbol, expression);
-		this.expressions.add(newExpression);
+	public void addExpression(Collection<Symbol> expression) {
+		this.expressions.add(new Expression(this.symbol, expression));
 	}
 }
