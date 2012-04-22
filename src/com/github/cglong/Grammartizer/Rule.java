@@ -22,4 +22,13 @@ public class Rule {
 			changes = this.symbol.updateFirstSet(expression) || changes;
 		return changes;
 	}
+	
+	public boolean updateFollowSets() {
+		boolean changes = false;
+		for (Expression expression : this.expressions)
+			for (Symbol symbol : expression.getRightSymbols())
+				if (symbol instanceof Nonterminal)
+					changes = symbol.updateFollowSet(expression) || changes;
+		return changes;
+	}
 }
