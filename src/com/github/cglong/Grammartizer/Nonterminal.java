@@ -18,7 +18,7 @@ public class Nonterminal extends Symbol {
 	}
 	
 	@Override
-	public Set<Symbol> getFollowSet() {
+	public Set<Symbol> getFollowSet() throws UnsupportedOperationException {
 		return this.followSet;
 	}
 	
@@ -29,7 +29,7 @@ public class Nonterminal extends Symbol {
 	}
 	
 	@Override
-	public boolean updateFollowSet(Expression expression) {
+	public boolean updateFollowSet(Expression expression) throws UnsupportedOperationException {
 		List<Symbol> symbols = expression.getRightSymbols();
 		List<Symbol> followSymbols = symbols.subList(symbols.indexOf(this)+1, symbols.size());
 		

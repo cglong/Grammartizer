@@ -1,7 +1,6 @@
 package com.github.cglong.Grammartizer;
 
 import java.util.Set;
-import java.lang.UnsupportedOperationException;
 
 public class Terminal extends Symbol {
 
@@ -16,7 +15,7 @@ public class Terminal extends Symbol {
 	}
 	
 	@Override
-	public Set<Symbol> getFollowSet() {
+	public Set<Symbol> getFollowSet() throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -26,7 +25,7 @@ public class Terminal extends Symbol {
 	}
 	
 	@Override
-	public boolean updateFollowSet(Expression expression) {
+	public boolean updateFollowSet(Expression expression) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 }
