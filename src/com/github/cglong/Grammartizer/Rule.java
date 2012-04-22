@@ -12,7 +12,7 @@ public class Rule {
 		this.symbol = symbol;
 	}
 	
-	public void addExpression(Collection<Symbol> expression) {
+	public void add(Collection<Symbol> expression) {
 		this.expressions.add(new Expression(this.symbol, expression));
 	}
 }
