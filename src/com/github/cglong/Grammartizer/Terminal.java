@@ -1,5 +1,6 @@
 package com.github.cglong.Grammartizer;
 
+import java.util.Set;
 import java.lang.UnsupportedOperationException;
 
 public class Terminal extends Symbol {
@@ -8,10 +9,15 @@ public class Terminal extends Symbol {
 		super(name);
 		this.getFirstSet().add(this);
 	}
-
+	
 	@Override
 	public boolean isTerminal() {
 		return true;
+	}
+	
+	@Override
+	public Set<Symbol> getFollowSet() {
+		throw new UnsupportedOperationException();
 	}
 	
 	@Override

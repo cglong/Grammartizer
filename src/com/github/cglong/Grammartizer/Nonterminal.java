@@ -1,16 +1,25 @@
 package com.github.cglong.Grammartizer;
 
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 
 public class Nonterminal extends Symbol {
-
+	private Set<Symbol> followSet;
+	
 	public Nonterminal(String name) {
 		super(name);
+		this.followSet = new HashSet<Symbol>();
 	}
-
+	
 	@Override
 	public boolean isTerminal() {
 		return false;
+	}
+	
+	@Override
+	public Set<Symbol> getFollowSet() {
+		return this.followSet;
 	}
 	
 	@Override
