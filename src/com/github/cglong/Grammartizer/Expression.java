@@ -13,6 +13,10 @@ public class Expression {
 		this.rightSymbols = new ArrayList<Symbol>(rightSymbols);
 	}
 	
+	public List<Symbol> getRightSymbols() {
+		return this.rightSymbols;
+	}
+	
 	public boolean hasLeftRecursion() {
 		return this.leftSymbol.equals(rightSymbols.get(0));
 	}

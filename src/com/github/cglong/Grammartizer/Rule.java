@@ -15,4 +15,11 @@ public class Rule {
 	public void add(Collection<Symbol> expression) {
 		this.expressions.add(new Expression(this.symbol, expression));
 	}
+	
+	public boolean updateFirstSets() {
+		boolean changes = false;
+		for (Expression expression : this.expressions)
+			changes = this.symbol.updateFirstSet(expression) || changes;
+		return changes;
+	}
 }
