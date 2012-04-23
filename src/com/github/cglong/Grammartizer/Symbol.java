@@ -6,6 +6,7 @@ import java.util.HashSet;
 public abstract class Symbol {
 	private String name;
 	private Set<Symbol> firstSet;
+	public int index;
 	
 	public Symbol(String name) {
 		this.name = name;

@@ -22,6 +22,10 @@ public class Expression {
 		return exp;
 	}
 	
+	public Symbol getLeft(){
+		return exp.get(0);
+	}
+	
 	public Expression(Nonterminal leftSymbol, Collection<Symbol> rightSymbols) {
 		this.leftSymbol = leftSymbol;
 		this.rightSymbols = new ArrayList<Symbol>(rightSymbols);

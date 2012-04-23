@@ -45,6 +45,10 @@ public class Grammar {
 		this.rules.add(new Rule(symbol, e));
 	}
 
+	public ArrayList<Rule> getRules(){
+		return this.rules;
+	}//end getter
+	
 	public void setStartvariable(Nonterminal s) {
 		this.startvariable = s;
 	}//end setter
