@@ -73,17 +73,22 @@ public class GrammarReader {
 						{ls = nt;
 						break;}
 				}
-				words2 = words[1].split(" ");
-				ArrayList<Symbol> rs = new ArrayList<Symbol>();
+
+				words2 = words[1].split(" [|] ");
 				for(String word : words2){
+					ArrayList<Symbol> rs = new ArrayList<Symbol>();
+					String[] words3 = word.split(" ");
+					for(String word2 : words3){
 					for(Symbol sym: allsymbols){
-						if(sym.getName().equals(word))
+						if(sym.getName().equals(word2))
 							{rs.add(sym);
 							break;}
+						}
 					}
+					Expression exp = new Expression(rs);
+					g.addRule(ls, exp);
 				}
-				Expression exp = new Expression(rs);
-				g.addRule(ls, exp);
+
 			}//end while
 			
 			
