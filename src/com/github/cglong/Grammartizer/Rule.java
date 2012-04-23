@@ -27,7 +27,7 @@ public class Rule {
 		boolean changes = false;
 		for (Expression expression : this.expressions)
 			for (Symbol symbol : expression.getRightSymbols())
-				if (symbol instanceof Nonterminal)
+				if (!symbol.isTerminal())
 					changes = symbol.updateFollowSet(expression) || changes;
 		return changes;
 	}
