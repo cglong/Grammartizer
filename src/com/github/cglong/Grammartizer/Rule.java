@@ -4,41 +4,40 @@ import java.util.Collection;
 import java.util.ArrayList;
 
 public class Rule {
-	private Expression exp;
+	private Collection<Expression> expressions;
 	private Nonterminal symbol;
 	
-	public Rule(Nonterminal symbol, Expression exp) {
-		this.exp = exp;
+	public Rule(Nonterminal symbol) {
+		this.expressions = new ArrayList<Expression>();
 		this.symbol = symbol;
 	}
 	
-	public void add(Symbol s) {
-		this.exp.add(s);
+	public void add(Expression expression) {
+		this.expressions.add(expression);
 	}
-	
-	public Expression getExpression()
-	{
-		return exp;
-	}//end getter
 	
 	public Nonterminal getSymbol()
 	{
-		return symbol;
-	}//end getter
+		return this.symbol;
+	}
 	
-//	public boolean updateFirstSets() {
-//		boolean changes = false;
-//		for (Expression expression : this.expressions)
-//			changes = this.symbol.updateFirstSet(expression) || changes;
-//		return changes;
-//	}
-//	
-//	public boolean updateFollowSets() {
-//		boolean changes = false;
-//		for (Expression expression : this.expressions)
-//			for (Symbol symbol : expression.getRightSymbols())
-//				if (!symbol.isTerminal())
-//					changes = symbol.updateFollowSet(expression) || changes;
-//		return changes;
-//	}
+	public Collection<Expression> getExpressions() {
+		return this.expressions;
+	}
+	
+	public boolean updateFirstSets() {
+		boolean changes = false;
+		for (Expression expression : this.expressions)
+			changes = this.symbol.updateFirstSet(expression) || changes;
+		return changes;
+	}
+	
+	public boolean updateFollowSets() {
+		boolean changes = false;
+		for (Expression expression : this.expressions)
+			for (Symbol symbol : expression.getRightSymbols())
+				if (!symbol.isTerminal())
+					changes = symbol.updateFollowSet(expression) || changes;
+		return changes;
+	}
 }

@@ -1,5 +1,6 @@
 package com.github.cglong.Grammartizer;
 
+import java.util.Collection;
 import java.util.ArrayList;
 
 public class TableBuilder {
@@ -10,7 +11,7 @@ public class TableBuilder {
 	{
 		ArrayList<Terminal> terminals = g.getTerminals();
 		ArrayList<Nonterminal> nonterminals = g.getNonterminals();
-		ArrayList<Rule> rules = g.getRules();
+		Collection<Rule> rules = g.getRules();
 		parsingtable = new Rule[nonterminals.size()][terminals.size()];
 		
 		for (Terminal t : terminals)
@@ -21,20 +22,21 @@ public class TableBuilder {
 		for(Rule r : rules)
 		{
 			Nonterminal A = r.getSymbol();
-			Expression rightside = r.getExpression();
-			Boolean hasempty = false;
-			for(Symbol alpha : rightside.getSymbols())
-			{
-				hasempty = false;
-				for(Symbol first : alpha.getFirstSet())
+			Collection<Expression> expressions = r.getExpressions();
+			boolean hasempty = false;
+			for (Expression expression : expressions)
+				for(Symbol alpha : expression.getRightSymbols())
 				{
-					parsingtable[A.index][first.index] = r;
-					if (first.getName().equals(""))
-						hasempty = true;
+					hasempty = false;
+					for(Symbol first : alpha.getFirstSet())
+					{
+						parsingtable[A.index][first.index] = r;
+						if (first.getName().equals(""))
+							hasempty = true;
+					}
+					if(!hasempty)
+						break;
 				}
-				if(!hasempty)
-					break;
-			}
 			
 			if(hasempty)
 			{

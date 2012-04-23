@@ -1,53 +1,51 @@
 package com.github.cglong.Grammartizer;
 
+import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Grammar {
-	//private Map<Nonterminal, Expression> rules;
-	private ArrayList<Rule> rules;
+	private Map<Nonterminal, Rule> rules;
 	private ArrayList<Nonterminal> nonterminals;
 	private ArrayList<Terminal> terminals;
-	private ArrayList<Symbol> allsymbols;
 	private Nonterminal startvariable;
 	
 	public Grammar() {
-		this.rules = new ArrayList<Rule>();
+		this.rules = new HashMap<Nonterminal, Rule>();
 		this.terminals = new ArrayList<Terminal>();
 		this.nonterminals = new ArrayList<Nonterminal>();
-		this.allsymbols = new ArrayList<Symbol>();
-		this.startvariable = new Nonterminal("placeholder");
-	}//end constructor
+	}
 	
-	public void debugDump()
-	{
+	public void debugDump() {
 		System.out.println("Terminals: ");
-		for(Terminal t : terminals)
+		for (Terminal t : terminals)
 			System.out.print(t.getName() + " ");
 		System.out.println();
 		System.out.println("Nonterminals : ");
-		for(Nonterminal t: nonterminals)
+		for (Nonterminal t: nonterminals)
 			System.out.print(t.getName() + " ");
 		System.out.println();
 		System.out.println("Rules: ");
-		for(Rule r : rules)
-		{
-		System.out.print(r.getSymbol().getName() + " : ");
-		for(Symbol s : r.getExpression().getSymbols())
-			System.out.print(s.getName() + " ");
-		System.out.println();
+		for (Rule r : rules.values()) {
+			System.out.print(r.getSymbol().getName() + " : ");
+			for (Expression e : r.getExpressions())
+				for (Symbol s : e.getRightSymbols())
+					System.out.print(s.getName() + " ");
+			System.out.println();
 		}
-	}//end debug
-	
-	
-	public void addRule(Nonterminal symbol, Expression e) {
-		this.rules.add(new Rule(symbol, e));
 	}
-
-	public ArrayList<Rule> getRules(){
-		return this.rules;
-	}//end getter
+	
+	public void add(Nonterminal symbol, Expression expression) {
+		if (!this.rules.containsKey(symbol))
+			this.rules.put(symbol, new Rule(symbol));
+		Rule rule = this.rules.get(symbol);
+		rule.add(expression);
+	}
+	
+	public Collection<Rule> getRules() {
+		return this.rules.values();
+	}
 	
 	public void setStartvariable(Nonterminal s) {
 		this.startvariable = s;
@@ -75,14 +73,4 @@ public class Grammar {
 		this.nonterminals = n;
 	}// end setter
 	
-	public void setAllSymbols(ArrayList<Symbol> s)
-	{
-		this.allsymbols = s;
-	}//end setter
-	
-	public ArrayList<Symbol> getAllSymbols()
-	{
-		return allsymbols;
-	}// end getter
-	
-}//end class
+}

@@ -58,7 +58,6 @@ public class GrammarReader {
 					g.setStartvariable(n);
 			}
 			g.setNonterminals(nonterminals);
-			g.setAllSymbols(allsymbols);
 			
 			nextline = scan.nextLine();
 			if(!nextline.equals("%Rules"))
@@ -85,8 +84,8 @@ public class GrammarReader {
 							break;}
 						}
 					}
-					Expression exp = new Expression(rs);
-					g.addRule(ls, exp);
+					Expression exp = new Expression(ls, rs);
+					g.add(ls, exp);
 				}
 
 			}//end while
