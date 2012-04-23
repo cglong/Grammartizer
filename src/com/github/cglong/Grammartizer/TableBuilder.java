@@ -8,15 +8,12 @@ public class TableBuilder {
 	
 	public TableBuilder(Grammar g)
 	{
-		ArrayList<Terminal> terminals = g.getTerminals();
-		ArrayList<Nonterminal> nonterminals = g.getNonterminals();
+		ArrayList<Symbol> allsymbols = g.getAllSymbols();
 		ArrayList<Rule> rules = g.getRules();
-		parsingtable = new Rule[nonterminals.size()][terminals.size()];
+		parsingtable = new Rule[allsymbols.size()][allsymbols.size()];
 		
-		for (Terminal t : terminals)
-			t.index = terminals.indexOf(t);
-		for (Nonterminal n : nonterminals)
-			n.index = nonterminals.indexOf(n);
+		for (Symbol t : allsymbols)
+			t.index = allsymbols.indexOf(t);
 		
 		for(Rule r : rules)
 		{
