@@ -20,12 +20,12 @@ public class Terminal extends Symbol {
 	}
 	
 	@Override
-	public boolean updateFirstSet(Expression expression) {
+	public boolean updateFirstSet(Rule rule) {
 		return false;
 	}
 	
 	@Override
-	public boolean updateFollowSet(Expression expression) throws UnsupportedOperationException {
+	public boolean updateFollowSet(Rule rule) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 }

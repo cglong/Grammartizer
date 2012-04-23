@@ -84,8 +84,8 @@ public class GrammarReader {
 							break;}
 						}
 					}
-					Expression exp = new Expression(ls, rs);
-					g.add(ls, exp);
+					Rule rule = new Rule(ls, rs);
+					g.add(ls, rule);
 				}
 
 			}//end while

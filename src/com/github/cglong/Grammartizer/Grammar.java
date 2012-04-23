@@ -6,13 +6,13 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Grammar {
-	private Map<Nonterminal, Rule> rules;
+	private Map<Nonterminal, RuleSet> ruleSets;
 	private ArrayList<Nonterminal> nonterminals;
 	private ArrayList<Terminal> terminals;
 	private Nonterminal startvariable;
 	
 	public Grammar() {
-		this.rules = new HashMap<Nonterminal, Rule>();
+		this.ruleSets = new HashMap<Nonterminal, RuleSet>();
 		this.terminals = new ArrayList<Terminal>();
 		this.nonterminals = new ArrayList<Nonterminal>();
 	}
@@ -27,24 +27,24 @@ public class Grammar {
 			System.out.print(t.getName() + " ");
 		System.out.println();
 		System.out.println("Rules: ");
-		for (Rule r : rules.values()) {
+		for (RuleSet r : ruleSets.values()) {
 			System.out.print(r.getSymbol().getName() + " : ");
-			for (Expression e : r.getExpressions())
+			for (Rule e : r.getRules())
 				for (Symbol s : e.getRightSymbols())
 					System.out.print(s.getName() + " ");
 			System.out.println();
 		}
 	}
 	
-	public void add(Nonterminal symbol, Expression expression) {
-		if (!this.rules.containsKey(symbol))
-			this.rules.put(symbol, new Rule(symbol));
-		Rule rule = this.rules.get(symbol);
-		rule.add(expression);
+	public void add(Nonterminal symbol, Rule rule) {
+		if (!this.ruleSets.containsKey(symbol))
+			this.ruleSets.put(symbol, new RuleSet(symbol));
+		RuleSet ruleSet = this.ruleSets.get(symbol);
+		ruleSet.add(rule);
 	}
 	
-	public Collection<Rule> getRules() {
-		return this.rules.values();
+	public Collection<RuleSet> getRuleSets() {
+		return this.ruleSets.values();
 	}
 	
 	public void setStartvariable(Nonterminal s) {

@@ -29,6 +29,6 @@ public abstract class Symbol {
 	
 	abstract public boolean isTerminal();
 	abstract public Set<Symbol> getFollowSet() throws UnsupportedOperationException;
-	abstract public boolean updateFirstSet(Expression expression);
-	abstract public boolean updateFollowSet(Expression expression) throws UnsupportedOperationException;
+	abstract public boolean updateFirstSet(Rule rule);
+	abstract public boolean updateFollowSet(Rule rule) throws UnsupportedOperationException;
 }

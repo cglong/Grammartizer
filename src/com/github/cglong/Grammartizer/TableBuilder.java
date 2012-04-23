@@ -5,27 +5,27 @@ import java.util.ArrayList;
 
 public class TableBuilder {
 
-	private Rule[][] parsingtable;
+	private RuleSet[][] parsingtable;
 	
 	public TableBuilder(Grammar g)
 	{
 		ArrayList<Terminal> terminals = g.getTerminals();
 		ArrayList<Nonterminal> nonterminals = g.getNonterminals();
-		Collection<Rule> rules = g.getRules();
-		parsingtable = new Rule[nonterminals.size()][terminals.size()];
+		Collection<RuleSet> ruleSet = g.getRuleSets();
+		parsingtable = new RuleSet[nonterminals.size()][terminals.size()];
 		
 		for (Terminal t : terminals)
 			t.index = terminals.indexOf(t);
 		for (Nonterminal n : nonterminals)
 			n.index = nonterminals.indexOf(n);
 		
-		for(Rule r : rules)
+		for(RuleSet r : ruleSet)
 		{
 			Nonterminal A = r.getSymbol();
-			Collection<Expression> expressions = r.getExpressions();
+			Collection<Rule> rules = r.getRules();
 			boolean hasempty = false;
-			for (Expression expression : expressions)
-				for(Symbol alpha : expression.getRightSymbols())
+			for (Rule rule : rules)
+				for(Symbol alpha : rule.getRightSymbols())
 				{
 					hasempty = false;
 					for(Symbol first : alpha.getFirstSet())

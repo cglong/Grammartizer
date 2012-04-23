@@ -23,14 +23,14 @@ public class Nonterminal extends Symbol {
 	}
 	
 	@Override
-	public boolean updateFirstSet(Expression expression) {
-		Symbol first = expression.getRightSymbols().get(0);
+	public boolean updateFirstSet(Rule rule) {
+		Symbol first = rule.getRightSymbols().get(0);
 		return this.getFirstSet().addAll(first.getFirstSet());
 	}
 	
 	@Override
-	public boolean updateFollowSet(Expression expression) throws UnsupportedOperationException {
-		List<Symbol> symbols = expression.getRightSymbols();
+	public boolean updateFollowSet(Rule rule) throws UnsupportedOperationException {
+		List<Symbol> symbols = rule.getRightSymbols();
 		List<Symbol> followSymbols = symbols.subList(symbols.indexOf(this)+1, symbols.size());
 		
 		boolean changes = false;
