@@ -5,8 +5,22 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Expression {
+	private ArrayList<Symbol> exp;
 	private List<Symbol> rightSymbols;
-	private Nonterminal leftSymbol;
+	private Symbol leftSymbol;
+	
+	public Expression(ArrayList<Symbol> s){
+		this.exp = s;
+	}
+	
+	public void add(Symbol s)
+	{
+		exp.add(s);
+	}
+	
+	public ArrayList<Symbol> getSymbols(){
+		return exp;
+	}
 	
 	public Expression(Nonterminal leftSymbol, Collection<Symbol> rightSymbols) {
 		this.leftSymbol = leftSymbol;
