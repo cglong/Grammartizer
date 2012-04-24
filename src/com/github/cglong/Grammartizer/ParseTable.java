@@ -46,5 +46,10 @@ public class ParseTable {
 				}
 			}
 		}
-	}//end constructor
-}//end class
+	}
+	
+	public Rule get(Nonterminal A, Terminal a)
+	{
+		return parsingtable[A.getIndex()][a.getIndex()];
+	}
+}
