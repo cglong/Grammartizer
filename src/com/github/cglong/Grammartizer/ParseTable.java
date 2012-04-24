@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class ParseTable {
 
-	private RuleSet[][] parsingtable;
+	private Rule[][] parsingtable;
 	
 	public ParseTable(Grammar g)
 	{
 		ArrayList<Terminal> terminals = g.getTerminals();
 		ArrayList<Nonterminal> nonterminals = g.getNonterminals();
 		Collection<RuleSet> ruleSet = g.getRuleSets();
-		parsingtable = new RuleSet[nonterminals.size()][terminals.size()];
+		parsingtable = new Rule[nonterminals.size()][terminals.size()];
 		
 		for (Terminal t : terminals)
 			t.setIndex(terminals.indexOf(t));
@@ -25,12 +25,13 @@ public class ParseTable {
 			Collection<Rule> rules = r.getRules();
 			boolean hasempty = false;
 			for (Rule rule : rules)
+			{
 				for(Symbol alpha : rule.getRightSymbols())
 				{
 					hasempty = false;
 					for(Symbol first : alpha.getFirstSet())
 					{
-						parsingtable[A.getIndex()][first.getIndex()] = r;
+						parsingtable[A.getIndex()][first.getIndex()] = rule;
 						if (first.getName().equals(""))
 							hasempty = true;
 					}
@@ -38,10 +39,11 @@ public class ParseTable {
 						break;
 				}
 			
-			if(hasempty)
-			{
-				for(Symbol follow : A.getFollowSet())
-					parsingtable[A.getIndex()][follow.getIndex()] = r;
+				if(hasempty)
+				{
+					for(Symbol follow : A.getFollowSet())
+						parsingtable[A.getIndex()][follow.getIndex()] = rule;
+				}
 			}
 		}
 	}//end constructor
