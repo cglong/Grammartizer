@@ -3,11 +3,11 @@ package com.github.cglong.Grammartizer;
 import java.util.Collection;
 import java.util.ArrayList;
 
-public class TableBuilder {
+public class ParseTable {
 
 	private RuleSet[][] parsingtable;
 	
-	public TableBuilder(Grammar g)
+	public ParseTable(Grammar g)
 	{
 		ArrayList<Terminal> terminals = g.getTerminals();
 		ArrayList<Nonterminal> nonterminals = g.getNonterminals();
