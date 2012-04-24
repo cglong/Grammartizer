@@ -23,9 +23,9 @@ public class ParseTable {
 		{
 			Nonterminal A = r.getSymbol();
 			Collection<Rule> rules = r.getRules();
-			boolean hasempty = false;
 			for (Rule rule : rules)
 			{
+				boolean hasempty = false;
 				for(Symbol alpha : rule.getRightSymbols())
 				{
 					hasempty = false;
