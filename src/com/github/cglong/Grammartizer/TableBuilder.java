@@ -15,9 +15,9 @@ public class TableBuilder {
 		parsingtable = new RuleSet[nonterminals.size()][terminals.size()];
 		
 		for (Terminal t : terminals)
-			t.index = terminals.indexOf(t);
+			t.setIndex(terminals.indexOf(t));
 		for (Nonterminal n : nonterminals)
-			n.index = nonterminals.indexOf(n);
+			n.setIndex(nonterminals.indexOf(n));
 		
 		for(RuleSet r : ruleSet)
 		{
@@ -30,7 +30,7 @@ public class TableBuilder {
 					hasempty = false;
 					for(Symbol first : alpha.getFirstSet())
 					{
-						parsingtable[A.index][first.index] = r;
+						parsingtable[A.getIndex()][first.getIndex()] = r;
 						if (first.getName().equals(""))
 							hasempty = true;
 					}
@@ -41,7 +41,7 @@ public class TableBuilder {
 			if(hasempty)
 			{
 				for(Symbol follow : A.getFollowSet())
-					parsingtable[A.index][follow.index] = r;
+					parsingtable[A.getIndex()][follow.getIndex()] = r;
 			}
 		}
 	}//end constructor
