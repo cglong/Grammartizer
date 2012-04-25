@@ -17,6 +17,11 @@ public class Rule {
 		return this.rightSymbols.get(0);
 	}
 	
+	public Nonterminal getLeftSide()
+	{
+		return leftSymbol;
+	}
+	
 	public Rule(Nonterminal leftSymbol, Collection<Symbol> rightSymbols) {
 		this.leftSymbol = leftSymbol;
 		this.rightSymbols = new ArrayList<Symbol>(rightSymbols);

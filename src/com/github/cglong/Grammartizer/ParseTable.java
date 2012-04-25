@@ -1,16 +1,20 @@
 package com.github.cglong.Grammartizer;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.ArrayList;
 
 public class ParseTable {
 
 	private Rule[][] parsingtable;
+	private ArrayList<Terminal> terminals;
+	private ArrayList<Nonterminal> nonterminals;
 	
 	public ParseTable(Grammar g)
 	{
-		ArrayList<Terminal> terminals = g.getTerminals();
-		ArrayList<Nonterminal> nonterminals = g.getNonterminals();
+		terminals = g.getTerminals();
+		nonterminals = g.getNonterminals();
 		Collection<RuleSet> ruleSet = g.getRuleSets();
 		parsingtable = new Rule[nonterminals.size()][terminals.size()];
 		
@@ -52,4 +56,32 @@ public class ParseTable {
 	{
 		return parsingtable[A.getIndex()][a.getIndex()];
 	}
+	
+	public void toFile(String filename)
+	{
+		String s = "";
+		for(Nonterminal n : nonterminals)
+		{
+			for(Terminal t : terminals)
+			{
+				Rule r = this.get(n, t);
+				String s1 = "";
+				for(Symbol sym : r.getRightSymbols())
+					s1 = s1 + sym.getName();
+				
+				s = s + "[" + n.getName() + " , " + t.getName() + "] : " +
+				r.getLeftSide().getName() + " --> " + s1 + "\n";
+			}
+		}
+//		char[] buffer = new char[s.length()];
+//		s.getChars(0, s.length(), buffer, 0);
+		try {
+			FileWriter writer = new FileWriter(filename);
+			writer.write(s);
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("Filewriter failed");
+			System.exit(-1);
+		}
+	}//end to file
 }
