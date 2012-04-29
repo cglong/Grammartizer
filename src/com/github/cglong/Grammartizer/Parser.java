@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class Driver {
+public class Parser {
 
-	public static void validate(ArrayList<Terminal> inputtokens, Nonterminal startvar, ParseTable parsetable)
+	public static void parse(ArrayList<Terminal> inputtokens, Nonterminal startvar, ParseTable parsetable)
 	{
 		
 		Stack<Symbol> stack = new Stack<Symbol>();
