@@ -67,6 +67,7 @@ public class Grammar {
 	
 	public void setStartvariable(Nonterminal s) {
 		this.startvariable = s;
+		this.startvariable.getFollowSet().add(new Terminal("$"));
 	}//end setter
 
 	public Nonterminal getStartvariable() {
