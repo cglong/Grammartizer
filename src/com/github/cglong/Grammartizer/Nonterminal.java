@@ -36,6 +36,11 @@ public class Nonterminal extends Symbol {
 		boolean changes = false;
 		for (Symbol symbol : followSymbols)
 			changes = this.getFollowSet().addAll(symbol.getFirstSet()) || changes;
+		
+		boolean hadEmpty = this.getFollowSet().remove(new Nonterminal(""));
+		if (hadEmpty)
+			changes = this.getFollowSet().addAll(rule.getLeftSide().getFollowSet()) || changes;
+		
 		return changes;
 	}
 }

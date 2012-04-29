@@ -34,10 +34,10 @@ public class RuleSet {
 	
 	public boolean updateFollowSets() {
 		boolean changes = false;
-		for (Rule expression : this.rules)
-			for (Symbol symbol : expression.getRightSymbols())
+		for (Rule rule : this.rules)
+			for (Symbol symbol : rule.getRightSymbols())
 				if (!symbol.isTerminal())
-					changes = symbol.updateFollowSet(expression) || changes;
+					changes = symbol.updateFollowSet(rule) || changes;
 		return changes;
 	}
 	
