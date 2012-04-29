@@ -9,7 +9,7 @@ public class DriverTest {
 		String[] args = {};
 		try {
 			assertFalse(Driver.testMain(args) == 0);
-		} catch (Exception e) {
+		} catch (SecurityException e) {
 		}
 	}
 	
@@ -18,7 +18,7 @@ public class DriverTest {
 		String[] args = {"tiny.txt"};
 		try {
 			assertEquals(0, Driver.testMain(args));
-		} catch (Exception e) {
+		} catch (SecurityException e) {
 		}
 	}
 }
