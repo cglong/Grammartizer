@@ -6,7 +6,6 @@ import java.util.HashSet;
 public abstract class Symbol {
 	private String name;
 	private Set<Symbol> firstSet;
-	private int index;
 	
 	public Symbol(String name) {
 		this.name = name;
@@ -19,14 +18,6 @@ public abstract class Symbol {
 	
 	public Set<Symbol> getFirstSet() {
 		return this.firstSet;
-	}
-	
-	public int getIndex() {
-		return this.index;
-	}
-	
-	public void setIndex(int index) {
-		this.index = index;
 	}
 	
 	@Override

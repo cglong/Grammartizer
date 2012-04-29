@@ -1,87 +1,47 @@
 package com.github.cglong.Grammartizer;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collection;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
-public class ParseTable {
+public class ParseTable extends HashMap<Nonterminal, Map<Terminal, Rule>> {
 
-	private Rule[][] parsingtable;
-	private ArrayList<Terminal> terminals;
-	private ArrayList<Nonterminal> nonterminals;
-	
-	public ParseTable(Grammar g)
-	{
-		terminals = g.getTerminals();
-		nonterminals = g.getNonterminals();
-		Collection<RuleSet> ruleSet = g.getRuleSets();
-		parsingtable = new Rule[nonterminals.size()][terminals.size()];
+	private static final long serialVersionUID = -9213469451171219214L;
+
+	public ParseTable(Grammar grammar) {
+		Collection<RuleSet> ruleSets = grammar.getRuleSets();
 		
-		for (Terminal t : terminals)
-			t.setIndex(terminals.indexOf(t));
-		for (Nonterminal n : nonterminals)
-			n.setIndex(nonterminals.indexOf(n));
-		
-		for(RuleSet r : ruleSet)
-		{
-			Nonterminal A = r.getSymbol();
-			Collection<Rule> rules = r.getRules();
-			for (Rule rule : rules)
-			{
-				boolean hasempty = false;
-				for(Symbol alpha : rule.getRightSymbols())
-				{
-					hasempty = false;
-					for(Symbol first : alpha.getFirstSet())
-					{
-						parsingtable[A.getIndex()][first.getIndex()] = rule;
-						if (first.getName().equals(""))
-							hasempty = true;
+		Terminal emptyString = new Terminal("");
+		for (RuleSet ruleSet : ruleSets) {
+			Nonterminal A = ruleSet.getSymbol();
+			Collection<Rule> rules = ruleSet.getRules();
+			
+			for (Rule rule : rules) {
+				boolean hasEmpty = false;
+				for (Symbol alpha : rule.getRightSymbols()) {
+					for (Terminal first : alpha.getFirstSet()) {
+						this.put(A, first, rule);
+						if (first.equals(emptyString))
+							hasEmpty = true;
 					}
-					if(!hasempty)
+					if (!hasEmpty)
 						break;
 				}
-			
-				if(hasempty)
-				{
-					for(Symbol follow : A.getFollowSet())
-						parsingtable[A.getIndex()][follow.getIndex()] = rule;
-				}
-			}
-		}
-	}
-	
-	public Rule get(Nonterminal A, Terminal a)
-	{
-		return parsingtable[A.getIndex()][a.getIndex()];
-	}
-	
-	public void toFile(String filename)
-	{
-		String s = "";
-		for(Nonterminal n : nonterminals)
-		{
-			for(Terminal t : terminals)
-			{
-				Rule r = this.get(n, t);
-				String s1 = "";
-				for(Symbol sym : r.getRightSymbols())
-					s1 = s1 + sym.getName();
 				
-				s = s + "[" + n.getName() + " , " + t.getName() + "] : " +
-				r.getLeftSide().getName() + " --> " + s1 + "\n";
+				if (hasEmpty)
+					for (Terminal follow : A.getFollowSet())
+						this.put(A, follow, rule);
 			}
 		}
-//		char[] buffer = new char[s.length()];
-//		s.getChars(0, s.length(), buffer, 0);
-		try {
-			FileWriter writer = new FileWriter(filename);
-			writer.write(s);
-			writer.close();
-		} catch (IOException e) {
-			System.out.println("Filewriter failed");
-			System.exit(-1);
-		}
-	}//end to file
+	}
+	
+	public Rule get(Nonterminal A, Terminal a) {
+		return this.get(A).get(a);
+	}
+	
+	public Rule put(Nonterminal A, Terminal a, Rule rule) {
+		if (!this.containsKey(A))
+			this.put(A, new HashMap<Terminal, Rule>());
+		return this.get(A).put(a, rule);
+	}
 }
