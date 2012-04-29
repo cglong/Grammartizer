@@ -3,9 +3,13 @@ package com.github.cglong.Grammartizer;
 public class Driver {
 	
 	public static void main(String[] args) {
+		testMain(args);
+	}
+	
+	public static int testMain(String[] args) {
 		if (args.length != 1) {
 			System.out.println("Not enough arguments!");
-			return;
+			return -1;
 		}
 		
 		GrammarReader grammarReader = new GrammarReader(args[0]);
@@ -14,7 +18,6 @@ public class Driver {
 		grammar.updateFirstSets();
 		grammar.updateFollowSets();
 		
-		grammar.debugDump();
+		return 0;
 	}
-
 }
