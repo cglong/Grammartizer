@@ -15,7 +15,7 @@ public class Terminal extends Symbol {
 	}
 	
 	@Override
-	public Set<Symbol> getFollowSet() throws UnsupportedOperationException {
+	public Set<Terminal> getFollowSet() throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 	

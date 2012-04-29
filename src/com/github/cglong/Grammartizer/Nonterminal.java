@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Nonterminal extends Symbol {
-	private Set<Symbol> followSet;
+	private Set<Terminal> followSet;
 	
 	public Nonterminal(String name) {
 		super(name);
-		this.followSet = new HashSet<Symbol>();
+		this.followSet = new HashSet<Terminal>();
 	}
 	
 	@Override
@@ -18,7 +18,7 @@ public class Nonterminal extends Symbol {
 	}
 	
 	@Override
-	public Set<Symbol> getFollowSet() throws UnsupportedOperationException {
+	public Set<Terminal> getFollowSet() throws UnsupportedOperationException {
 		return this.followSet;
 	}
 	
