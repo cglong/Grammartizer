@@ -61,6 +61,14 @@ public class Grammar {
 		} while (changes);
 	}
 	
+	@Override
+	public String toString() {
+		String str = "";
+		for (RuleSet ruleSet : this.ruleSets.values())
+			str += ruleSet.toString() + "\n";
+		return str;
+	}
+	
 	public Collection<RuleSet> getRuleSets() {
 		return this.ruleSets.values();
 	}

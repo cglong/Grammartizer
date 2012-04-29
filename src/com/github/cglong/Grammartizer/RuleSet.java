@@ -40,4 +40,11 @@ public class RuleSet {
 					changes = symbol.updateFollowSet(expression) || changes;
 		return changes;
 	}
+	
+	@Override
+	public String toString() {
+		String str = "First(" + this.symbol + "): " + this.symbol.getFirstSet();
+		str += "\nFollow(" + this.symbol + "): " + this.symbol.getFollowSet();
+		return str;
+	}
 }

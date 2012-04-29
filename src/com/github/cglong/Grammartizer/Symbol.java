@@ -35,6 +35,11 @@ public abstract class Symbol {
 		return this.name.equals(other.getName());
 	}
 	
+	@Override
+	public String toString() {
+		return this.getName();
+	}
+	
 	abstract public boolean isTerminal();
 	abstract public Set<Symbol> getFollowSet() throws UnsupportedOperationException;
 	abstract public boolean updateFirstSet(Rule rule);
