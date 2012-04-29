@@ -43,6 +43,24 @@ public class Grammar {
 		ruleSet.add(rule);
 	}
 	
+	public void updateFirstSets() {
+		boolean changes;
+		do {
+			changes = false;
+			for (RuleSet ruleSet : this.ruleSets.values())
+				changes = ruleSet.updateFirstSets() || changes;
+		} while (changes);
+	}
+	
+	public void updateFollowSets() {
+		boolean changes;
+		do {
+			changes = false;
+			for (RuleSet ruleSet : this.ruleSets.values())
+				changes = ruleSet.updateFollowSets() || changes;
+		} while (changes);
+	}
+	
 	public Collection<RuleSet> getRuleSets() {
 		return this.ruleSets.values();
 	}
