@@ -6,6 +6,7 @@ public class ParseTable {
 	private TwoKeyHashMap<Nonterminal, Terminal, Rule> table;
 
 	public ParseTable(Grammar grammar) {
+		this.table = new TwoKeyHashMap<Nonterminal, Terminal, Rule>();
 		Collection<RuleSet> ruleSets = grammar.getRuleSets();
 		
 		Terminal emptyString = new Terminal("");
