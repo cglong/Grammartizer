@@ -7,9 +7,9 @@ import java.util.HashSet;
  * Both Terminal and Nonterminal are child classes.
  */
 public abstract class Symbol {
-	/* The name of this symbol, as a String. See child classes for specific name syntax rules.*/
+	// The name of this symbol, as a String. See child classes for specific name syntax rules.
 	private String name;
-	/* This Symbol's first set - the set of characters that can be the first character in this set.*/
+	// This Symbol's first set - the set of characters that can be the first character in this set.
 	private Set<Terminal> firstSet;
 	
 	/* Initializes a Symbol with a name and an empty firstSet.
