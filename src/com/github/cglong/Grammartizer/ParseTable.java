@@ -36,4 +36,9 @@ public class ParseTable {
 	public Rule get(Nonterminal A, Terminal a) {
 		return this.table.get(A, a);
 	}
+	
+	@Override
+	public String toString() {
+		return this.table.toString();
+	}
 }

@@ -15,4 +15,13 @@ public class TwoKeyHashMap<K1, K2, V> extends HashMap<K1, Map<K2, V>> {
 			this.put(key1, new HashMap<K2, V>());
 		return this.get(key1).put(key2, value);
 	}
+	
+	@Override
+	public String toString() {
+		String str = "{";
+		for (K1 key1 : this.keySet())
+			for (K2 key2 : this.get(key1).keySet())
+				str += "[" + key1 + ", " + key2 + ", " + this.get(key1).get(key2) + "], ";
+		return str.substring(0, str.lastIndexOf(',')) + "}";
+	}
 }

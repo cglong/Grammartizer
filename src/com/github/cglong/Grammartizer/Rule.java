@@ -34,4 +34,12 @@ public class Rule {
 	public boolean hasLeftRecursion() {
 		return this.leftSymbol.equals(rightSymbols.get(0));
 	}
+	
+	@Override
+	public String toString() {
+		String str = this.leftSymbol + " -> ";
+		for (Symbol symbol : this.rightSymbols)
+			str += symbol;
+		return str;
+	}
 }
