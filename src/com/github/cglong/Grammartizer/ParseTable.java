@@ -1,12 +1,9 @@
 package com.github.cglong.Grammartizer;
 
 import java.util.Collection;
-import java.util.Map;
-import java.util.HashMap;
 
-public class ParseTable extends HashMap<Nonterminal, Map<Terminal, Rule>> {
-
-	private static final long serialVersionUID = -9213469451171219214L;
+public class ParseTable {
+	private TwoKeyHashMap<Nonterminal, Terminal, Rule> table;
 
 	public ParseTable(Grammar grammar) {
 		Collection<RuleSet> ruleSets = grammar.getRuleSets();
@@ -20,7 +17,7 @@ public class ParseTable extends HashMap<Nonterminal, Map<Terminal, Rule>> {
 				boolean hasEmpty = false;
 				for (Symbol alpha : rule.getRightSymbols()) {
 					for (Terminal first : alpha.getFirstSet()) {
-						this.put(A, first, rule);
+						this.table.put(A, first, rule);
 						if (first.equals(emptyString))
 							hasEmpty = true;
 					}
@@ -30,18 +27,12 @@ public class ParseTable extends HashMap<Nonterminal, Map<Terminal, Rule>> {
 				
 				if (hasEmpty)
 					for (Terminal follow : A.getFollowSet())
-						this.put(A, follow, rule);
+						this.table.put(A, follow, rule);
 			}
 		}
 	}
 	
 	public Rule get(Nonterminal A, Terminal a) {
-		return this.get(A).get(a);
-	}
-	
-	public Rule put(Nonterminal A, Terminal a, Rule rule) {
-		if (!this.containsKey(A))
-			this.put(A, new HashMap<Terminal, Rule>());
-		return this.get(A).put(a, rule);
+		return this.table.get(A, a);
 	}
 }
