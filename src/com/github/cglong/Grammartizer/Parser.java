@@ -19,6 +19,8 @@ public class Parser {
 			{
 				if(sym.isTerminal())
 				{
+					if(inputtokens.isEmpty())
+						fail("Expected Token: " + sym.getName());
 					if(sym.equals(inputtokens.get(0)))
 						inputtokens.remove(0);
 					else

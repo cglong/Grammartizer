@@ -10,11 +10,14 @@ public class Grammar {
 	private ArrayList<Nonterminal> nonterminals;
 	private ArrayList<Terminal> terminals;
 	private Nonterminal startvariable;
+	private Terminal epsilon;
 	
 	public Grammar() {
 		this.ruleSets = new HashMap<Nonterminal, RuleSet>();
 		this.terminals = new ArrayList<Terminal>();
 		this.nonterminals = new ArrayList<Nonterminal>();
+		this.epsilon = new Terminal("");
+		this.terminals.add(epsilon);
 	}
 	
 	public void debugDump() {
@@ -81,6 +84,10 @@ public class Grammar {
 	public Nonterminal getStartvariable() {
 		return startvariable;
 	}//end getter
+	
+	public Terminal getEpsilon(){
+		return epsilon;
+	}
 	
 	public ArrayList<Terminal> getTerminals(){
 		return terminals;
