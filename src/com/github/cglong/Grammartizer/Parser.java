@@ -1,8 +1,9 @@
 package com.github.cglong.Grammartizer;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 public class Parser {
 
@@ -21,7 +22,7 @@ public class Parser {
 				{
 					if(inputtokens.isEmpty())
 						fail("Expected Token: " + sym.getName());
-					else if(sym.equals(inputtokens.get(0)))
+					else if(Pattern.matches(sym.getName(), inputtokens.get(0).getName()))
 						inputtokens.remove(0);
 					else
 						fail("Unexpected Token: " + inputtokens.get(0).getName() + " Expected: " + sym.getName());			
