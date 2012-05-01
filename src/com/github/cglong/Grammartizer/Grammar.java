@@ -5,13 +5,29 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/* Represents a full Context-Free Grammar specification.
+ * Holds a set of rules, nonterminals, terminals, and a start variable.
+ */
 public class Grammar {
+	// A list of RuleSet objects, indexed by the Nonterminal they are specified by.
 	private Map<Nonterminal, RuleSet> ruleSets;
+	
+	// An array of all Nonterminals used in this Grammar
 	private ArrayList<Nonterminal> nonterminals;
+	
+	// An array of all Terminals used in this Grammar
 	private ArrayList<Terminal> terminals;
+	
+	// The starting Nonterminal
 	private Nonterminal startvariable;
+	
+	// A single reference for the special epsilon Terminal.  It is a terminal with "" as its name.
 	private Terminal epsilon;
 	
+	/* Initializes this Grammar object with a created epsilon variable.
+	 * The list of terminals includes only epsilon.
+	 * All other instance data are initially empty.
+	 */
 	public Grammar() {
 		this.ruleSets = new ConcurrentHashMap<Nonterminal, RuleSet>();
 		this.terminals = new ArrayList<Terminal>();
@@ -20,6 +36,8 @@ public class Grammar {
 		this.terminals.add(epsilon);
 	}
 	
+	/* Prints all of the instance data, for use in debugging.
+	 */
 	public void debugDump() {
 		System.out.println("Terminals: ");
 		for (Terminal t : terminals)
@@ -39,6 +57,11 @@ public class Grammar {
 		}
 	}
 	
+	/* Inserts a new rule into the grammar.
+	 * Automatically merges it with an existing RuleSet, if one exists.
+	 * symbol - The Nonterminal on the left side of the rule.
+	 * rule - The rule to add to this Grammar
+	 */
 	public void add(Nonterminal symbol, Rule rule) {
 		if (!this.ruleSets.containsKey(symbol))
 			this.ruleSets.put(symbol, new RuleSet(symbol));
@@ -46,6 +69,11 @@ public class Grammar {
 		ruleSet.add(rule);
 	}
 	
+	/* Fills the first sets with their correct values.
+	 * PRECONDITION: All rules have been added to this Grammar
+	 * PRECONDITION: Immediate left recursion and common prefixes have been removed.
+	 * POSTCONDITION: All Terminals and Nonterminals have their first sets correctly set
+	 */
 	public void updateFirstSets() {
 		boolean changes;
 		do {
@@ -54,7 +82,12 @@ public class Grammar {
 				changes = ruleSet.updateFirstSets() || changes;
 		} while (changes);
 	}
-	
+
+	/* Fills the follow sets with their correct values.
+	 * PRECONDITION: All rules have been added to this Grammar
+	 * PRECONDITION: Immediate left recursion and common prefixes have been removed.
+	 * POSTCONDITION: All Terminals and Nonterminals have their follow sets correctly set
+	 */
 	public void updateFollowSets() {
 		boolean changes;
 		do {
@@ -127,7 +160,71 @@ public class Grammar {
 		this.ruleSets.put(tail, tailSet);
 	}
 	
+	/* Eliminates all common prefixes in the grammar.
+	 * Changes all rules of type <A> : A B | A C | ... | A N | M | O | ... | Z to
+	 * <A> : | A <A>A | M | O | ... | Z
+	 * <A>A : B | C | ... | N
+	 * PRECONDITION: All rules have been added to this Grammar
+	 * PRECONDITION: Left recursion has been removed from this Grammar
+	 * POSTCONDITION: The grammar will recognize the same language but will have all common prefixes removed.
+	 */
+	public void eliminateCommonPrefixes() {
+		for (RuleSet ruleset : this.ruleSets.values()) {
+			// This list maps the leftmost symbol in a rule to a list of rules with that leftmost symbol
+			ConcurrentHashMap<Symbol, ArrayList<Rule>> ruleMap = new ConcurrentHashMap<Symbol, ArrayList<Rule>>(); 
+			
+			// Scan all Rules and add them to the map
+			for (Rule rule : ruleset.getRules()) {
+				if (!ruleMap.containsKey(rule.getLeft()))
+					ruleMap.put(rule.getLeft(), new ArrayList<Rule>());
+				
+				ruleMap.get(rule.getLeft()).add(rule);
+			}
+			
+			// Scan all lists based on common prefixes.
+			// If a list has more than two elements with a common prefix, factor it out.
+			for (ArrayList<Rule> ruleList :  ruleMap.values()) {
+				if (ruleList.size() >= 2) {
+					Symbol common = ruleList.get(0).getLeft();
+					Nonterminal oldSymbol = ruleList.get(0).getLeftSide();
+					
+					// First step:  Remove these rules from ruleset
+					for (Rule rule : ruleList)
+						ruleset.remove(rule);
+					
+					// Second step: Create a new derivative nonterminal
+					Nonterminal newSymbol = new Nonterminal(oldSymbol.getName() + common.getName());
+					
+					// Third step:  Create a new rule with the common prefix and nonterminal
+					ArrayList<Symbol> newRuleList = new ArrayList<Symbol>();
+					newRuleList.add(common);
+					newRuleList.add(newSymbol);
+					Rule newRule = new Rule(oldSymbol, newRuleList);
+					
+					
+					// Fourth step:  Add this new rule to ruleset
+					ruleset.add(newRule);
+					
+					// Fifth step: Remove the leftmost symbol from each of these rules
+					for (Rule rule : ruleList)
+						rule.getRightSymbols().remove(0);
+					
+					// Sixth step: Change the nonterminal in each of these rules to the new one
+					for (Rule rule : ruleList)
+						rule.setLeftSite(newSymbol);
+					
+					// Seventh step:  Add these rules to the Grammar
+					for (Rule rule : ruleList)
+						this.add(newSymbol, rule);
+				}
+				
+			}
+		}
+	}
+	
 	@Override
+	/* Sets the printing behavior for a Grammar to print all rule sets.
+	 */
 	public String toString() {
 		String str = "";
 		for (RuleSet ruleSet : this.ruleSets.values())
@@ -135,38 +232,53 @@ public class Grammar {
 		return str;
 	}
 	
+	/* Getter for the list of RuleSets
+	 */
 	public Collection<RuleSet> getRuleSets() {
 		return this.ruleSets.values();
 	}
 	
+	/* Setter for this Grammar's start variable.
+	 * s - This Grammar's start variable.
+	 */
 	public void setStartvariable(Nonterminal s) {
 		this.startvariable = s;
 		this.startvariable.getFollowSet().add(new Terminal("$"));
 	}//end setter
 
+	/* Getter for this Grammar's start variable.
+	 */
 	public Nonterminal getStartvariable() {
 		return startvariable;
 	}//end getter
 	
+	/* Getter for the epsilon Terminal.
+	 */
 	public Terminal getEpsilon(){
 		return epsilon;
 	}
 	
+	/* Getter for the list of Terminals.
+	 */
 	public ArrayList<Terminal> getTerminals(){
 		return terminals;
 	}//end getter
 	
+	/* Getter for the list of Nonterminals.
+	 */
 	public ArrayList<Nonterminal> getNonterminals(){
 		return nonterminals;
 	}//end getter
 	
-	public void setTerminals(ArrayList<Terminal> t)
-	{
+	/* Setter for the list of Terminals.
+	 */
+	public void setTerminals(ArrayList<Terminal> t) {
 		this.terminals = t;
 	}//end setter
 	
-	public void setNonterminals(ArrayList<Nonterminal> n)
-	{
+	/* Setter for the list of Nonterminals.
+	 */
+	public void setNonterminals(ArrayList<Nonterminal> n) {
 		this.nonterminals = n;
 	}// end setter
 	

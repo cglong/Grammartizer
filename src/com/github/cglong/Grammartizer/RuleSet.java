@@ -28,6 +28,13 @@ public class RuleSet {
 		this.rules.add(rule);
 	}
 	
+	/* Removes the specified rule from this RuleSet.
+	 * rule - The rule to remove
+	 */
+	public void remove (Rule rule) {
+		this.rules.remove(rule);
+	}
+	
 	/* Gets the Nonterminal that this RuleSet uses.
 	 */
 	public Nonterminal getSymbol() {
