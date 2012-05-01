@@ -58,7 +58,7 @@ public class Nonterminal extends Symbol {
 		for (Symbol symbol : followSymbols)
 			changes = this.getFollowSet().addAll(symbol.getFirstSet()) || changes;
 		
-		boolean hadEmpty = followSymbols.isEmpty() || this.getFollowSet().remove(new Nonterminal(""));
+		boolean hadEmpty = followSymbols.isEmpty() || this.getFollowSet().remove(new Terminal(""));
 		if (hadEmpty)
 			changes = this.getFollowSet().addAll(rule.getLeftSide().getFollowSet()) || changes;
 		
