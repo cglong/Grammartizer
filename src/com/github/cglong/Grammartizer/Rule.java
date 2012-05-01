@@ -42,6 +42,12 @@ public class Rule {
 		return leftSymbol;
 	}
 	
+	/* Setter for this rule's nonterminal.
+	 */
+	public void setLeftSite(Nonterminal newSymbol) {
+		leftSymbol = newSymbol;
+	}
+	
 	/* Getter for the list of right hand symbols.
 	 */
 	public List<Symbol> getRightSymbols() {
