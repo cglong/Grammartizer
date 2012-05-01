@@ -3,7 +3,7 @@ package com.github.cglong.Grammartizer;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Grammar {
 	private Map<Nonterminal, RuleSet> ruleSets;
@@ -13,7 +13,7 @@ public class Grammar {
 	private Terminal epsilon;
 	
 	public Grammar() {
-		this.ruleSets = new HashMap<Nonterminal, RuleSet>();
+		this.ruleSets = new ConcurrentHashMap<Nonterminal, RuleSet>();
 		this.terminals = new ArrayList<Terminal>();
 		this.nonterminals = new ArrayList<Nonterminal>();
 		this.epsilon = new Terminal("");
