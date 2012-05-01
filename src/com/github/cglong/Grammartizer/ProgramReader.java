@@ -10,10 +10,14 @@ public class ProgramReader {
 	String input;
 	ArrayList<Terminal> inputtokens = new ArrayList<Terminal>();
 	ArrayList<Terminal> terminals;
+	Terminal INTNUM;
+	Terminal ID;
  	
 	public ProgramReader(String filename, ArrayList<Terminal>t)
 	{
 		this.terminals = t;
+		this.INTNUM = new Terminal("INTNUM");
+		this.ID = new Terminal("ID");
 		File f = new File(filename);
 		try {
 			Scanner scan = new Scanner(f);
@@ -28,9 +32,13 @@ public class ProgramReader {
 	private void inputCrunch(String s)
 	{
 		Boolean found = false;
-		for(int a = 0; a < s.length(); a++)
+		for(int a = s.length()-1; a > -1; a--)
 		{
 			String w1 = s.substring(0, a+1);
+			if(w1.matches("[0-9]*"))
+				inputtokens.add(INTNUM);
+			else if(w1.matches("[a-z]|[A-Z]*"))
+				inputtokens.add(ID);
 			for(Terminal t : terminals)
 			{
 				if(t.getName().equals(w1))
