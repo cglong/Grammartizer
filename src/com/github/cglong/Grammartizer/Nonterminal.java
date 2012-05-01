@@ -70,10 +70,12 @@ public class Nonterminal extends Symbol {
 		
 		boolean changes = false;
 		boolean hadEmpty = followSymbols.isEmpty();
-		for (Symbol symbol : followSymbols) {
+		
+		if (!hadEmpty) {
+			Symbol symbol = followSymbols.get(0);
 			Set<Terminal> firstSet = new HashSet<Terminal>(symbol.getFirstSet());
-			hadEmpty = firstSet.remove(new Terminal("")) || hadEmpty;
-			changes = this.getFollowSet().addAll(firstSet) || changes;
+			hadEmpty = firstSet.remove(new Terminal(""));
+			changes = this.getFollowSet().addAll(firstSet);
 		}
 		
 		if (hadEmpty)
