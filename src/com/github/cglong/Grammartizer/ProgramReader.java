@@ -39,23 +39,25 @@ public class ProgramReader {
 				inputtokens.add(INTNUM);
 			else if(w1.matches("[a-z]|[A-Z]*"))
 				inputtokens.add(ID);
-			for(Terminal t : terminals)
-			{
-				if(t.getName().equals(w1))
+			else{
+				for(Terminal t : terminals)
 				{
-					inputtokens.add(t);
-					found = true;
-					break;
+					if(t.getName().equals(w1))
+					{
+						inputtokens.add(t);
+						found = true;
+						break;
+					}
 				}
-			}
-			if(found)
-			{
-				if(a < s.length()-1)
+				if(found)
 				{
-					String w2 = s.substring(a+2);
-					inputCrunch(w2);
+					if(a < s.length()-1)
+					{
+						String w2 = s.substring(a+2);
+						inputCrunch(w2);
+					}
+					return;
 				}
-				return;
 			}
 		}
 		System.out.println("Unable to recognize token: " + s);
