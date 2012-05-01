@@ -17,6 +17,7 @@ public class Driver {
 		GrammarReader grammarReader = new GrammarReader(args[0]);
 		Grammar grammar = grammarReader.readGrammar();
 		
+		grammar.eliminateLeftRecursion();
 		grammar.updateFirstSets();
 		grammar.updateFollowSets();
 		

@@ -57,5 +57,5 @@ public abstract class Symbol {
 	abstract public boolean updateFirstSet(Rule rule);
 	
 	// Given a Rule, runs an iteration that updates this Symbol's follow set.
-	abstract public boolean updateFollowSet(Rule rule) throws UnsupportedOperationException;
+	abstract public boolean updateFollowSet(Rule rule, int index) throws UnsupportedOperationException;
 }

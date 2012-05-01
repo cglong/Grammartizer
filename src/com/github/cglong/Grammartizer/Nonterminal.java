@@ -50,15 +50,15 @@ public class Nonterminal extends Symbol {
 	 * Multiple iterations may be needed within a Grammar.
 	 * rule - The rule to update this firstSet with.
 	 */
-	public boolean updateFollowSet(Rule rule) throws UnsupportedOperationException {
+	public boolean updateFollowSet(Rule rule, int index) throws UnsupportedOperationException {
 		List<Symbol> symbols = rule.getRightSymbols();
-		List<Symbol> followSymbols = symbols.subList(symbols.indexOf(this)+1, symbols.size());
+		List<Symbol> followSymbols = symbols.subList(index, symbols.size());
 		
 		boolean changes = false;
 		for (Symbol symbol : followSymbols)
 			changes = this.getFollowSet().addAll(symbol.getFirstSet()) || changes;
 		
-		boolean hadEmpty = this.getFollowSet().remove(new Nonterminal(""));
+		boolean hadEmpty = followSymbols.isEmpty() || this.getFollowSet().remove(new Nonterminal(""));
 		if (hadEmpty)
 			changes = this.getFollowSet().addAll(rule.getLeftSide().getFollowSet()) || changes;
 		

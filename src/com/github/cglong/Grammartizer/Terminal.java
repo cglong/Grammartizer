@@ -40,7 +40,7 @@ public class Terminal extends Symbol {
 	@Override
 	/* Throws an exception, since Terminals do not have defined follow sets.
 	 */
-	public boolean updateFollowSet(Rule rule) throws UnsupportedOperationException {
+	public boolean updateFollowSet(Rule rule, int index) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException();
 	}
 }

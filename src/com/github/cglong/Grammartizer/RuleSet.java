@@ -2,6 +2,7 @@ package com.github.cglong.Grammartizer;
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /* Represents a set of rules for a single nonterminal.
  * A symbol with multiple derivations separated by | symbols will have one RuleSet, containing a rule for each of the possible derivations.
@@ -69,10 +70,14 @@ public class RuleSet {
 	 */
 	public boolean updateFollowSets() {
 		boolean changes = false;
-		for (Rule rule : this.rules)
-			for (Symbol symbol : rule.getRightSymbols())
+		for (Rule rule : this.rules) {
+			ListIterator<Symbol> iter = rule.getRightSymbols().listIterator();
+			while (iter.hasNext()) {
+				Symbol symbol = iter.next();
 				if (!symbol.isTerminal())
-					changes = symbol.updateFollowSet(rule) || changes;
+					changes = symbol.updateFollowSet(rule, iter.nextIndex()) || changes;
+			}
+		}
 		return changes;
 	}
 	
