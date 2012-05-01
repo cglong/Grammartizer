@@ -55,10 +55,13 @@ public class Nonterminal extends Symbol {
 		List<Symbol> followSymbols = symbols.subList(index, symbols.size());
 		
 		boolean changes = false;
-		for (Symbol symbol : followSymbols)
-			changes = this.getFollowSet().addAll(symbol.getFirstSet()) || changes;
+		boolean hadEmpty = followSymbols.isEmpty();
+		for (Symbol symbol : followSymbols) {
+			Set<Terminal> firstSet = new HashSet<Terminal>(symbol.getFirstSet());
+			hadEmpty = firstSet.remove(new Terminal("")) || hadEmpty;
+			changes = this.getFollowSet().addAll(firstSet) || changes;
+		}
 		
-		boolean hadEmpty = followSymbols.isEmpty() || this.getFollowSet().remove(new Terminal(""));
 		if (hadEmpty)
 			changes = this.getFollowSet().addAll(rule.getLeftSide().getFollowSet()) || changes;
 		

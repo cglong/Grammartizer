@@ -47,6 +47,11 @@ public abstract class Symbol {
 		return this.getName();
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.getName().hashCode();
+	}
+	
 	// Should return true if this Symbol is a Terminal, false if not.
 	abstract public boolean isTerminal();
 	
