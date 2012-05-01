@@ -37,7 +37,7 @@ public class ProgramReader {
 			String w1 = s.substring(0, a+1);
 			if(w1.matches("[0-9]*"))
 				inputtokens.add(INTNUM);
-			else if(w1.matches("[a-z]|[A-Z]*"))
+			else if(w1.matches("([a-z]|[A-Z])*"))
 				inputtokens.add(ID);
 			else{
 				for(Terminal t : terminals)
