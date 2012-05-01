@@ -133,6 +133,9 @@ public class Grammar {
 		// The new 'tail' RuleSet
 		RuleSet tailSet = new RuleSet(tail);
 
+		// Add the new nonterminal to the list.
+		nonterminals.add(tail);
+		
 		// For each non recursive rule B, add a rule B<a-tail> to newBase
 		for (Rule rule : nonRecursiveRules) {
 			ArrayList<Symbol> newSymbolList = new ArrayList<Symbol>(rule.getRightSymbols());
@@ -221,6 +224,9 @@ public class Grammar {
 						// Seventh step:  Add these rules to the Grammar
 						for (Rule rule : ruleList)
 							this.add(newSymbol, rule);
+						
+						// Eighth step:  Add the new Nonterminal to the list of nonterminals.
+						nonterminals.add(newSymbol);
 					}
 					
 				}
