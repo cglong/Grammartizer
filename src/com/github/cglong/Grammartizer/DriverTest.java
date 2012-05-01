@@ -14,7 +14,7 @@ public class DriverTest {
 	
 	@Test
 	public void testTiny() {
-		String[] args = {"tiny.txt"};
+		String[] args = {"Grammars/tiny.txt"};
 		try {
 			assertFalse(Driver.testMain(args) == 0);
 		} catch (SecurityException e) {}
@@ -22,7 +22,7 @@ public class DriverTest {
 	
 	@Test
 	public void testTinyNew() {
-		String[] args = {"tiny_new.txt"};
+		String[] args = {"Grammars/tiny_new.txt"};
 		try {
 			assertTrue(Driver.testMain(args) == 0);
 		} catch (SecurityException e) {}
