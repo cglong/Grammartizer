@@ -12,4 +12,4 @@
 <exp-arith> : <exp-arith> + <exp-mul> | <exp-arith> - <exp-mul> | <exp-mul>
 <exp-mul> : <exp-mul> * <exp-mod> | <exp-mod>
 <exp-mod> : <exp-mod> % <term> | <term>
-<term> : ID | INTNUM | (<exp-arith>)
+<term> : ID | INTNUM | ( <exp-arith> )
