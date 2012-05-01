@@ -44,7 +44,7 @@ public class Rule {
 	
 	/* Setter for this rule's nonterminal.
 	 */
-	public void setLeftSite(Nonterminal newSymbol) {
+	public void setLeftSide(Nonterminal newSymbol) {
 		leftSymbol = newSymbol;
 	}
 	

@@ -219,7 +219,7 @@ public class Grammar {
 						
 						// Sixth step: Change the nonterminal in each of these rules to the new one
 						for (Rule rule : ruleList)
-							rule.setLeftSite(newSymbol);
+							rule.setLeftSide(newSymbol);
 						
 						// Seventh step:  Add these rules to the Grammar
 						for (Rule rule : ruleList)
