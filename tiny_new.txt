@@ -1,0 +1,15 @@
+%Tokens begin end print read ( ) ; ID := , INTNUM + - * %
+%Non-terminals <Tiny-program> <statement-list> <statement> <id-list> <exp-list> <exp-arith> <exp-mul> <exp-mod> <term>
+%Start <Tiny-program>
+%Rules
+<Tiny-program> : begin <statement-list> end
+<statement-list> : <statement-list> <statement> | <statement>
+<statement> : print ( <exp-list> ) ;
+<statement> : ID := <exp-arith> ;
+<statement> : read ( <id-list> ) ;
+<id-list> : <id-list> , ID | ID
+<exp-list> : <exp-list> , <exp-arith> | <exp-arith>
+<exp-arith> : <exp-arith> + <exp-mul> | <exp-arith> - <exp-mul> | <exp-mul>
+<exp-mul> : <exp-mul> * <exp-mod> | <exp-mod>
+<exp-mod> : <exp-mod> % <term> | <term>
+<term> : ID | INTNUM | (<exp-arith>)
