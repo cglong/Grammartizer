@@ -169,57 +169,63 @@ public class Grammar {
 	 * POSTCONDITION: The grammar will recognize the same language but will have all common prefixes removed.
 	 */
 	public void eliminateCommonPrefixes() {
-		for (RuleSet ruleset : this.ruleSets.values()) {
-			// This list maps the leftmost symbol in a rule to a list of rules with that leftmost symbol
-			ConcurrentHashMap<Symbol, ArrayList<Rule>> ruleMap = new ConcurrentHashMap<Symbol, ArrayList<Rule>>(); 
-			
-			// Scan all Rules and add them to the map
-			for (Rule rule : ruleset.getRules()) {
-				if (!ruleMap.containsKey(rule.getLeft()))
-					ruleMap.put(rule.getLeft(), new ArrayList<Rule>());
+		boolean changes;
+		
+		do {
+			changes = false;
+			for (RuleSet ruleset : this.ruleSets.values()) {
+				// This list maps the leftmost symbol in a rule to a list of rules with that leftmost symbol
+				ConcurrentHashMap<Symbol, ArrayList<Rule>> ruleMap = new ConcurrentHashMap<Symbol, ArrayList<Rule>>(); 
 				
-				ruleMap.get(rule.getLeft()).add(rule);
-			}
-			
-			// Scan all lists based on common prefixes.
-			// If a list has more than two elements with a common prefix, factor it out.
-			for (ArrayList<Rule> ruleList :  ruleMap.values()) {
-				if (ruleList.size() >= 2) {
-					Symbol common = ruleList.get(0).getLeft();
-					Nonterminal oldSymbol = ruleList.get(0).getLeftSide();
+				// Scan all Rules and add them to the map
+				for (Rule rule : ruleset.getRules()) {
+					if (!ruleMap.containsKey(rule.getLeft()))
+						ruleMap.put(rule.getLeft(), new ArrayList<Rule>());
 					
-					// First step:  Remove these rules from ruleset
-					for (Rule rule : ruleList)
-						ruleset.remove(rule);
-					
-					// Second step: Create a new derivative nonterminal
-					Nonterminal newSymbol = new Nonterminal(oldSymbol.getName() + common.getName());
-					
-					// Third step:  Create a new rule with the common prefix and nonterminal
-					ArrayList<Symbol> newRuleList = new ArrayList<Symbol>();
-					newRuleList.add(common);
-					newRuleList.add(newSymbol);
-					Rule newRule = new Rule(oldSymbol, newRuleList);
-					
-					
-					// Fourth step:  Add this new rule to ruleset
-					ruleset.add(newRule);
-					
-					// Fifth step: Remove the leftmost symbol from each of these rules
-					for (Rule rule : ruleList)
-						rule.getRightSymbols().remove(0);
-					
-					// Sixth step: Change the nonterminal in each of these rules to the new one
-					for (Rule rule : ruleList)
-						rule.setLeftSite(newSymbol);
-					
-					// Seventh step:  Add these rules to the Grammar
-					for (Rule rule : ruleList)
-						this.add(newSymbol, rule);
+					ruleMap.get(rule.getLeft()).add(rule);
 				}
 				
+				// Scan all lists based on common prefixes.
+				// If a list has more than two elements with a common prefix, factor it out.
+				for (ArrayList<Rule> ruleList :  ruleMap.values()) {
+					if (ruleList.size() >= 2) {
+						changes = true;
+						Symbol common = ruleList.get(0).getLeft();
+						Nonterminal oldSymbol = ruleList.get(0).getLeftSide();
+						
+						// First step:  Remove these rules from ruleset
+						for (Rule rule : ruleList)
+							ruleset.remove(rule);
+						
+						// Second step: Create a new derivative nonterminal
+						Nonterminal newSymbol = new Nonterminal(oldSymbol.getName() + common.getName());
+						
+						// Third step:  Create a new rule with the common prefix and nonterminal
+						ArrayList<Symbol> newRuleList = new ArrayList<Symbol>();
+						newRuleList.add(common);
+						newRuleList.add(newSymbol);
+						Rule newRule = new Rule(oldSymbol, newRuleList);
+						
+						
+						// Fourth step:  Add this new rule to ruleset
+						ruleset.add(newRule);
+						
+						// Fifth step: Remove the leftmost symbol from each of these rules
+						for (Rule rule : ruleList)
+							rule.getRightSymbols().remove(0);
+						
+						// Sixth step: Change the nonterminal in each of these rules to the new one
+						for (Rule rule : ruleList)
+							rule.setLeftSite(newSymbol);
+						
+						// Seventh step:  Add these rules to the Grammar
+						for (Rule rule : ruleList)
+							this.add(newSymbol, rule);
+					}
+					
+				}
 			}
-		}
+		} while (changes == true);
 	}
 	
 	@Override

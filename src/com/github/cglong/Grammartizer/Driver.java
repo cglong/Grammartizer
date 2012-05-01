@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Driver {
 	
 	public static void main(String[] args) {
-		testRecursion();
+		testPrefix();
 	}
 	
 	public static int testMain(String[] args) {
@@ -22,6 +22,52 @@ public class Driver {
 		grammar.updateFollowSets();
 		
 		return 0;
+	}
+	
+	public static void testPrefix() {
+		// Testing common prefix removal
+		// Input:  <A> : abb | abc | bd
+		// Expected output:
+		// <A> : a <A>a | bd
+		// <A>a : b <A>ab
+		// <A>ab : b | c
+		Grammar g = new Grammar();
+		
+		Nonterminal A = new Nonterminal("<A>");
+		Terminal a = new Terminal("a");
+		Terminal b = new Terminal("b");
+		Terminal c = new Terminal("c");
+		Terminal d = new Terminal("d");
+		
+		
+		ArrayList<Symbol> Rule1List = new ArrayList<Symbol>();
+		Rule1List.add(a);
+		Rule1List.add(b);
+		Rule1List.add(b);
+		
+		ArrayList<Symbol> Rule2List = new ArrayList<Symbol>();
+		Rule2List.add(a);
+		Rule2List.add(b);
+		Rule2List.add(c);
+		
+		ArrayList<Symbol> Rule3List = new ArrayList<Symbol>();
+		Rule3List.add(b);
+		Rule3List.add(d);
+		
+		Rule rule1 = new Rule(A, Rule1List);
+		Rule rule2 = new Rule(A, Rule2List);
+		Rule rule3 = new Rule(A, Rule3List);
+		
+		g.add(A, rule1);
+		g.add(A, rule2);
+		g.add(A, rule3);
+		
+		g.eliminateCommonPrefixes();
+		
+		for (RuleSet set : g.getRuleSets()) {
+			for (Rule rule : set.getRules())
+				System.out.println(rule);
+		}	
 	}
 	
 	public static void testRecursion() {
