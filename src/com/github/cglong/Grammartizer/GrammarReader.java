@@ -35,6 +35,10 @@ public class GrammarReader {
 			for(int a = 1; a < words.length; a++)
 			{
 				Terminal t = new Terminal(words[a]);
+				if(words[a].equals("LEFTPAR"))
+					t = new Terminal("(");
+				if(words[a].equals("RIGHTPAR"))
+					t = new Terminal(")");
 				terminals.add(t);
 				allsymbols.add(t);
 			}
