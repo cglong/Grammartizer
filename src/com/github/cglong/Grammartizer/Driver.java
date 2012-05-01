@@ -18,8 +18,16 @@ public class Driver {
 		Grammar grammar = grammarReader.readGrammar();
 		
 		grammar.eliminateLeftRecursion();
+		grammar.eliminateCommonPrefixes();
 		grammar.updateFirstSets();
 		grammar.updateFollowSets();
+		
+		try {
+			ParseTable parseTable = new ParseTable(grammar);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		}
 		
 		return 0;
 	}

@@ -5,7 +5,7 @@ import java.util.Collection;
 public class ParseTable {
 	private TwoKeyHashMap<Nonterminal, Terminal, Rule> table;
 
-	public ParseTable(Grammar grammar) {
+	public ParseTable(Grammar grammar) throws IllegalArgumentException {
 		this.table = new TwoKeyHashMap<Nonterminal, Terminal, Rule>();
 		Collection<RuleSet> ruleSets = grammar.getRuleSets();
 		
@@ -18,7 +18,8 @@ public class ParseTable {
 				boolean hasEmpty = false;
 				for (Symbol alpha : rule.getRightSymbols()) {
 					for (Terminal first : alpha.getFirstSet()) {
-						this.table.put(A, first, rule);
+						if (this.table.put(A, first, rule) != null)
+							throw new IllegalArgumentException("Rule already exists for [" + A + ", " + first + "]!");
 						if (first.equals(emptyString))
 							hasEmpty = true;
 					}
@@ -28,7 +29,8 @@ public class ParseTable {
 				
 				if (hasEmpty)
 					for (Terminal follow : A.getFollowSet())
-						this.table.put(A, follow, rule);
+						if (this.table.put(A, follow, rule) != null)
+							throw new IllegalArgumentException("Rule already exists for [" + A + ", " + follow + "]!");
 			}
 		}
 	}

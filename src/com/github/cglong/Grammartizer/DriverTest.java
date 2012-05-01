@@ -5,20 +5,26 @@ import org.junit.Test;
 
 public class DriverTest {
 	@Test
-	public void testNoLanguage() {
+	public void testNoGrammar() {
 		String[] args = {};
 		try {
 			assertFalse(Driver.testMain(args) == 0);
-		} catch (SecurityException e) {
-		}
+		} catch (SecurityException e) {}
 	}
 	
 	@Test
 	public void testTiny() {
 		String[] args = {"tiny.txt"};
 		try {
-			assertEquals(0, Driver.testMain(args));
-		} catch (SecurityException e) {
-		}
+			assertFalse(Driver.testMain(args) == 0);
+		} catch (SecurityException e) {}
+	}
+	
+	@Test
+	public void testTinyNew() {
+		String[] args = {"tiny_new.txt"};
+		try {
+			assertTrue(Driver.testMain(args) == 0);
+		} catch (SecurityException e) {}
 	}
 }
