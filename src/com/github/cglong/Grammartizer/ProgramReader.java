@@ -44,7 +44,7 @@ public class ProgramReader {
 			{
 				if(a < s.length()-1)
 				{
-					String w2 = s.substring(a+1);
+					String w2 = s.substring(a+2);
 					inputCrunch(w2);
 				}
 				return;
@@ -58,9 +58,4 @@ public class ProgramReader {
 	{
 		return inputtokens;
 	}
-	private void indexify(String s)
-	{
-		
-	}//end indexify
-
 }//end class
