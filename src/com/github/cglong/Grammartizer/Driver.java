@@ -9,7 +9,7 @@ public class Driver {
 	}
 	
 	public static int testMain(String[] args) {
-		if (args.length != 1) {
+		if (args.length != 2) {
 			System.out.println("Not enough arguments!");
 			return -1;
 		}
@@ -22,12 +22,16 @@ public class Driver {
 		grammar.updateFirstSets();
 		grammar.updateFollowSets();
 		
+		ParseTable parseTable;
 		try {
-			ParseTable parseTable = new ParseTable(grammar);
+			parseTable = new ParseTable(grammar);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 			return -1;
 		}
+		
+		ProgramReader programReader = new ProgramReader(args[1], grammar.getTerminals());
+		Parser.parse(programReader.getInputTokens(), grammar.getStartvariable(), new Terminal(""), parseTable);
 		
 		return 0;
 	}
