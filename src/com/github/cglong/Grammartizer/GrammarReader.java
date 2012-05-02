@@ -114,23 +114,23 @@ public class GrammarReader {
 	private String notationSwitch(String s)
 	{
 		if(s.equals("LEFTPAR"))
-			return "[(]";
+			return "(";
 		else if(s.equals("RIGHTPAR"))
-			return "[)]";
+			return ")";
 		else if(s.equals("ASSIGN"))
-			return "[:=]";
+			return ":=";
 		else if(s.equals("COMMA"))
-			return "[,]";
+			return ",";
 		else if(s.equals("SEMICOLON"))
-			return "[;]";
+			return ";";
 		else if(s.equals("PLUS"))
-			return "[+]";
+			return "+";
 		else if(s.equals("MINUS"))
-			return "[-]";
+			return "-";
 		else if(s.equals("MULTIPLY"))
-			return "[*]";
+			return "*";
 		else if(s.equals("MODULO"))
-			return "[%]";
+			return "%";
 		else
 			return s;
 	}
