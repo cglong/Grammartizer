@@ -1,4 +1,4 @@
-%Tokens begin end print read ( ) ; ID := , INTNUM + - * %
+%Tokens begin end print read LEFTPAR RIGHTPAR SEMICOLON ID ASSIGN COMMA INTNUM PLUS MINUS MULTIPLY MODULO
 %Non-terminals <Tiny-program> <statement-list> <statement> <id-list> <exp-list> <exp-arith> <exp-mul> <exp-mod> <term>
 %Start <Tiny-program>
 %Rules

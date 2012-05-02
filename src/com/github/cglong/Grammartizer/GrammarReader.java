@@ -43,6 +43,8 @@ public class GrammarReader {
 					t = new Terminal(":=");
 				else if(words[a].equals("COMMA"))
 					t = new Terminal(",");
+				else if(words[a].equals("SEMICOLON"))
+					t = new Terminal(";");
 				else if(words[a].equals("PLUS"))
 					t = new Terminal("+");
 				else if(words[a].equals("MINUS"))
