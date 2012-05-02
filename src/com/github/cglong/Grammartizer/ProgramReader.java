@@ -47,10 +47,10 @@ public class ProgramReader {
 			
 			if(!found)
 				{
-				if(w1.matches("[0-9]*"))
+				if(w1.matches("\\d*"))
 					{inputtokens.add(INTNUM);
 					found = true;}
-				else if(w1.matches("([a-z]|[A-Z])*"))
+				else if(w1.matches("[\\w&&\\D](_?\\p{Alnum})*") && w1.length() < 10)
 					{inputtokens.add(ID);
 					found = true;}
 				}
