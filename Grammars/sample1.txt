@@ -4,4 +4,5 @@
 %Rules
 <lexp> : <atom> | <list>
 <atom> : INTNUM | ID
-<list> : LEFTPAR <lexp-seq> RIGHTPAR <lexp-seq> : <lexp-seq> <lexp> | <lexp>
+<list> : LEFTPAR <lexp-seq> RIGHTPAR
+<lexp-seq> : <lexp-seq> <lexp> | <lexp>
