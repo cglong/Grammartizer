@@ -34,25 +34,7 @@ public class GrammarReader {
 				fail("%Tokens expected");
 			for(int a = 1; a < words.length; a++)
 			{
-				Terminal t = new Terminal(words[a]);
-				if(words[a].equals("LEFTPAR"))
-					t = new Terminal("(");
-				else if(words[a].equals("RIGHTPAR"))
-					t = new Terminal(")");
-				else if(words[a].equals("ASSIGN"))
-					t = new Terminal(":=");
-				else if(words[a].equals("COMMA"))
-					t = new Terminal(",");
-				else if(words[a].equals("SEMICOLON"))
-					t = new Terminal(";");
-				else if(words[a].equals("PLUS"))
-					t = new Terminal("+");
-				else if(words[a].equals("MINUS"))
-					t = new Terminal("-");
-				else if(words[a].equals("MULTIPLY"))
-					t = new Terminal("*");
-				else if(words[a].equals("MODULO"))
-					t = new Terminal("%");
+				Terminal t = new Terminal(notationSwitch(words[a]));
 				terminals.add(t);
 				allsymbols.add(t);
 			}
@@ -97,7 +79,7 @@ public class GrammarReader {
 					String[] words3 = word.split(" ");
 					for(String word2 : words3){
 					for(Symbol sym: allsymbols){
-						if(sym.getName().equals(word2))
+						if(sym.getName().equals(notationSwitch(word2)))
 							{rs.add(sym);
 							break;}
 						}
@@ -127,5 +109,29 @@ public class GrammarReader {
 	{
 		System.out.println(s);
 		System.exit(-1);
+	}
+	
+	private String notationSwitch(String s)
+	{
+		if(s.equals("LEFTPAR"))
+			return "(";
+		else if(s.equals("RIGHTPAR"))
+			return ")";
+		else if(s.equals("ASSIGN"))
+			return ":=";
+		else if(s.equals("COMMA"))
+			return ",";
+		else if(s.equals("SEMICOLON"))
+			return ";";
+		else if(s.equals("PLUS"))
+			return "+";
+		else if(s.equals("MINUS"))
+			return "-";
+		else if(s.equals("MULTIPLY"))
+			return "*";
+		else if(s.equals("MODULO"))
+			return "%";
+		else
+			return s;
 	}
 }//end class
