@@ -223,6 +223,14 @@ public class Grammar {
 						
 						// Seventh step:  Add these rules to the Grammar
 						for (Rule rule : ruleList)
+							if(rule.getRightSymbols().isEmpty())
+								{
+								ArrayList<Symbol> eps = new ArrayList<Symbol>();
+								eps.add(epsilon);
+								this.add(newSymbol, new Rule(newSymbol, eps));
+								
+								}
+							else
 							this.add(newSymbol, rule);
 						
 						// Eighth step:  Add the new Nonterminal to the list of nonterminals.
