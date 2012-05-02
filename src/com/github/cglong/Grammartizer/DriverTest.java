@@ -8,7 +8,7 @@ public class DriverTest {
 	public void testNoGrammar() {
 		String[] args = {};
 		try {
-			assertFalse(Driver.testMain(args) == 0);
+			assertFalse(Driver.realMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
 	
@@ -16,7 +16,7 @@ public class DriverTest {
 	public void testNoInput() {
 		String[] args = {"Grammars/tiny_new.txt"};
 		try {
-			assertFalse(Driver.testMain(args) == 0);
+			assertFalse(Driver.realMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
 	
@@ -24,7 +24,7 @@ public class DriverTest {
 	public void testTiny() {
 		String[] args = {"Grammars/tiny.txt", "Inputs/tiny_easy.txt"};
 		try {
-			assertFalse(Driver.testMain(args) == 0);
+			assertFalse(Driver.realMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
 	
@@ -32,7 +32,7 @@ public class DriverTest {
 	public void testTinyNew() {
 		String[] args = {"Grammars/tiny_new.txt", "Inputs/tiny_easy.txt"};
 		try {
-			assertTrue(Driver.testMain(args) == 0);
+			assertTrue(Driver.realMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
 	
@@ -40,7 +40,7 @@ public class DriverTest {
 	public void testSample1() {
 		String[] args = {"Grammars/sample1.txt", "Inputs/sample1_easy.txt"};
 		try {
-			assertTrue(Driver.testMain(args) == 0);
+			assertTrue(Driver.realMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
 	
@@ -48,7 +48,7 @@ public class DriverTest {
 	public void testSample2() {
 		String[] args = {"Grammars/sample2.txt", "Inputs/sample2_easy.txt"};
 		try {
-			assertTrue(Driver.testMain(args) == 0);
+			assertTrue(Driver.realMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
 }
