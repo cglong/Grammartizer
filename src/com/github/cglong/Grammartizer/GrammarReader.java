@@ -37,8 +37,20 @@ public class GrammarReader {
 				Terminal t = new Terminal(words[a]);
 				if(words[a].equals("LEFTPAR"))
 					t = new Terminal("(");
-				if(words[a].equals("RIGHTPAR"))
+				else if(words[a].equals("RIGHTPAR"))
 					t = new Terminal(")");
+				else if(words[a].equals("ASSIGN"))
+					t = new Terminal(":=");
+				else if(words[a].equals("COMMA"))
+					t = new Terminal(",");
+				else if(words[a].equals("PLUS"))
+					t = new Terminal("+");
+				else if(words[a].equals("MINUS"))
+					t = new Terminal("-");
+				else if(words[a].equals("MULTIPLY"))
+					t = new Terminal("*");
+				else if(words[a].equals("MODULO"))
+					t = new Terminal("%");
 				terminals.add(t);
 				allsymbols.add(t);
 			}
