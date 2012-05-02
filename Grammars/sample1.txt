@@ -1,0 +1,7 @@
+%Tokens INTNUM ID LEFTPAR RIGHTPAR
+%Non-terminals <lexp> <atom> <list> <lexp-seq>
+%Start <lexp>
+%Rules
+<lexp> : <atom> | <list>
+<atom> : INTNUM | ID
+<list> : LEFTPAR <lexp-seq> RIGHTPAR <lexp-seq> : <lexp-seq> <lexp> | <lexp>

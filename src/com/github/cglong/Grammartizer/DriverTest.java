@@ -35,4 +35,20 @@ public class DriverTest {
 			assertTrue(Driver.testMain(args) == 0);
 		} catch (SecurityException e) {}
 	}
+	
+	@Test
+	public void testSample1() {
+		String[] args = {"Grammars/sample1.txt", "Inputs/sample1_easy.txt"};
+		try {
+			assertTrue(Driver.testMain(args) == 0);
+		} catch (SecurityException e) {}
+	}
+	
+	@Test
+	public void testSample2() {
+		String[] args = {"Grammars/sample2.txt", "Inputs/sample2_easy.txt"};
+		try {
+			assertTrue(Driver.testMain(args) == 0);
+		} catch (SecurityException e) {}
+	}
 }
