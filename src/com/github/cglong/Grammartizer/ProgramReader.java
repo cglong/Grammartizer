@@ -59,8 +59,9 @@ public class ProgramReader {
 			{
 				if(a < s.length()-1)
 				{
-					String w2 = s.substring(a+1);
-					inputCrunch(w2);
+					String w2 = s.substring(a+1).trim();
+					if(w2.length()>0)
+						inputCrunch(w2);
 				}
 				return;
 			}
