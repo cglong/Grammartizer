@@ -1,4 +1,4 @@
-Grammartizer is an LL(1) parser written in Java. The program was designed to translate each piece of a parser into a high-level Java construct, which are then manipulated to complete a parse.
+**Grammartizer** is an LL(1) parser written in Java. The program was designed to translate each piece of a parser into a high-level Java construct, which are then manipulated to complete a parse.
 
 The program is implemented as follows:
 
